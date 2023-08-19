@@ -114,8 +114,8 @@ See also: [Avoid reinventing the wheel](#avoid-reinventing-the-wheel)
 #### Avoid `from ... import` import kind when unnecessary
 
 A large amount of symbols from modules do not carry their origin by their sole
-name. It also allows to visually distinguish a symbol in the current module
-from an imported one.
+name. It also makes harder to visually distinguish a symbol in the current
+module from an imported one.
 
 Example:
 
