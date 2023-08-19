@@ -103,11 +103,12 @@ Example:
   ...
 ```
 
-Perhaps it is obvious to you that `ArgumentParser` and `FileType` are coming
+Maybe it is obvious to you that `ArgumentParser` and `FileType` are coming
 from the `argparse` module, but this might not be the case for other
 developers. It is not necessarily bad nor always avoidable, but I tend to
 prefer avoiding context-sensitive names. Even though it often makes shorter
-lines of code, I tend to think that it more often decreases readability.
+lines of code, I think that it decreases readability more often than the
+opposite.
 
 Here is the same example with guidelines applied:
 
