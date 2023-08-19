@@ -8,9 +8,13 @@ will try to address in this document:
   - [Add structure commentary](#add-structure-commentary)
 - [Comments](#comments)
   - [Explain your intents](#explain-your-intents)
+  - [Do not over-comment](#do-not-over-comment)
 - [Imports](#imports)
   - [Avoid `from ... import` import kind when unnecessary](#avoid-from--import-import-kind-when-unnecessary)
   - [Split imported symbols to different lines](#split-imported-symbols-to-different-lines)
+  - [Do not use aliases](#do-not-use-aliases)
+- [Code logic](#code-logic)
+  - [Avoid reinventing the wheel](#avoid-reinventing-the-wheel)
 
 ## Tools
 
@@ -77,6 +81,31 @@ People may read (and write) code in a decade, and they have to be **aware of
 the choices made** and the reason behind: otherwise, they might change or
 remove something that might cause a subtle and quiet issue (this includes
 third-party tools such as type-checkers, by the way).
+
+#### Do not over-comment
+
+Commenting is good, but like most things, overdoing it can reverse the positive
+effects, especially when you are describing _what_ you do rather than
+[_why_](#explain-your-intents).
+
+A terrible example of that:
+
+```py
+  ...
+ 31   │ num_sum = 0
+ 32   │ # We iterate over the numbers
+ 33   │ for num in nums:
+ 34   │     # we add the current number to the sum
+ 35   │     num_sum += num
+  ...
+```
+
+Sorry for the harsh truth, but these two comments are absolutely unnecessary.
+They transcribe something that we can already see by reading the code itself,
+which is so simple that even people who are not familiar with Python would
+very likely understand.
+
+See also: [Avoid reinventing the wheel](#avoid-reinventing-the-wheel)
 
 ---
 
@@ -149,3 +178,69 @@ Here is what I mean:
  24   │     return parser.parse_args()
   ...
 ```
+
+#### Do not use aliases
+
+Naming stuff is already one of the hardest things in programming. It is also
+highly subjective ; for you, `t` might stands for `typing`, but someone might
+associate the letter with another module. It is okay to split a line into
+several ones, it does not necessarily make it less readable.
+
+An example of what to avoid:
+
+```py
+ 1    │ import typing as t
+ 2    │
+ 3    │ T = t.TypeVar("T")
+  ...
+ 6    │ def my_function(data: list[T], index: int) -> t.Optional[T]:
+                 # on a side note, use T | None instead ^^^^^^^^
+  ...
+```
+
+As for `from ... import` imports, it obscures the origin of the symbols.
+It is even worse in my opinion ; I'd rather use `from typing import ...` than
+`import typing as t` 💀.
+
+There is one exception for this rule, though. It is okay to use an alias if
+you are importing a module that is a drop-in replacement of a standard library.
+
+See also: [Avoid reinventing the wheel](#avoid-reinventing-the-wheel)
+
+### Code logic
+
+#### Avoid reinventing the wheel
+
+CPython is the standard implementation of Python and it comes with "batteries
+included". This means that you can find a lot of common programming patterns
+already coded in the standard library. Use them as much as possible,
+especially if they are written in C (it is faster 🚀).
+
+```py
+  ...
+ 31   │ num_sum = 0
+ 32   │ for num in nums:
+ 33   │     num_sum += num
+  ...
+```
+
+Here, you can use the built-in `sum` on `nums` instead.
+
+Okay, it is quite a silly example as it is very likely that you are aware of
+the existence of such function, but the idea remains the same for modules that
+you have to import.
+
+```py
+  ...
+ 31   │ num_sum = sum(nums)
+      # ^^^^^^^ now I wonder why you need a variable for that
+  ...
+```
+
+In extension to this guideline, you can also use third-packages as drop-in
+replacements of built-in modules if they have specific features that you need.
+
+For example, I often use [`regex`](https://github.com/mrabarnett/mrab-regex)
+instead of the built-in module `re`. It is literally designed as an extension
+of the latter, and has way better features (in my opinion) while supporting
+backward compatibility.
