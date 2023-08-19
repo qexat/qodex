@@ -198,7 +198,7 @@ An example of what to avoid:
   ...
 ```
 
-As for `from ... import` imports, it obscures the origin of the symbols.
+Like `from ... import` imports, it obscures the origin of the symbols.
 It is even worse in my opinion ; I'd rather use `from typing import ...` than
 `import typing as t` 💀.
 
