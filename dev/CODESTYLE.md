@@ -54,7 +54,7 @@ to split sections.
 
 ### Comments
 
-#### Explain the Y to the X
+#### Explain your intents
 
 Casting a returned value to a type for better type-checking? **Explain why you
 do so!** It is also worth writing a long comment if **there are other
@@ -97,14 +97,13 @@ Example:
  18   │ def parse_args() -> Namespace:
  19   │     parser = ArgumentParser()
  20   │     parser.add_argument("file", type=FileType("r"))
-      │                                      ^^^^^^^^ is that from argparse? 
  21   │
  22   │     return parser.parse_args()
   ...
 ```
 
-Maybe it is obvious to you that `ArgumentParser` and `FileType` are coming
-from the `argparse` module, but this might not be the case for other
+Maybe it is obvious to you that `ArgumentParser`, `FileType` and `Namespace`
+are coming from the `argparse` module, but this might not be the case for other
 developers. It is not necessarily bad nor always avoidable, but I tend to
 prefer avoiding context-sensitive names. Even though it often makes shorter
 lines of code, I think that it decreases readability more often than the
