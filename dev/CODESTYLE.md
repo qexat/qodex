@@ -241,6 +241,6 @@ In extension to this guideline, you can also use third-packages as drop-in
 replacements of built-in modules if they have specific features that you need.
 
 For example, I often use [`regex`](https://github.com/mrabarnett/mrab-regex)
-instead of the built-in module `re`. It is literally designed as an extension
-of the latter, and has way better features (in my opinion) while supporting
-backward compatibility.
+instead of the built-in module `re`. It is designed as an extension of the
+latter, and has way better features (in my opinion) while supporting backward
+compatibility.
