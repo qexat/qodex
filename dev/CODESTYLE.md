@@ -7,7 +7,7 @@ will try to address in this document:
 - [File structure](#file-structure)
   - [Add structure commentary](#add-structure-commentary)
 - [Comments](#comments)
-  - [Explain the Y to the X](#explain-the-y-to-the-x)
+  - [Explain your intents](#explain-your-intents)
 - [Imports](#imports)
   - [Avoid `from ... import` import kind when unnecessary](#avoid-from--import-import-kind-when-unnecessary)
   - [Split imported symbols to different lines](#split-imported-symbols-to-different-lines)
